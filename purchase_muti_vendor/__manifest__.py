@@ -11,6 +11,7 @@
     'author': 'Shadadi Tega',
     'depends': ['purchase'],  # required base module
     'data': [
+        'security/ir.model.access.csv',
         'views/purchase_order_view.xml',
     ],
     'installable': True,
