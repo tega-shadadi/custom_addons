@@ -113,4 +113,4 @@ The selected vendor becomes the supplier for the purchase order.
 Author
 --------
 
-Tega Shadady
+Tega Shadadi
