@@ -25,11 +25,10 @@ class PurchaseBid(models.Model):
     def select_winning_bid(self):
         """Set this bid as winner and update the RFQ's vendor."""
         for bid in self:
-            # Mark as winner
+            
             bid.status = 'winner'
 
-            # Update main vendor on the RFQ
             bid.rfq_id.partner_id = bid.rfq_vendor_id
 
-            # Optionally confirm the order
+      
             bid.rfq_id.button_confirm()

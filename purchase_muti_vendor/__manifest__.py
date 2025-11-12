@@ -9,7 +9,7 @@
         for a single RFQ and track them through the purchase process.
     """,
     'author': 'Shadadi Tega',
-    'depends': ['purchase'],  # required base module
+    'depends': ['purchase'],  
     'data': [
         'security/ir.model.access.csv',
         'views/purchase_order_view_v2.xml',
