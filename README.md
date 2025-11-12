@@ -1,5 +1,5 @@
  Purchase Request and RFQ Workflow Overview
-_______________________________________________
+-------
 
 
 This module extends Odoo’s purchasing functionality by introducing a Purchase Request process and a customized Request for Quotation (RFQ) workflow. It is designed for organizations where employees submit purchase requests to the Procurement department, which then prepares and manages RFQs based on those requests.
@@ -34,7 +34,7 @@ Automatic Purchase Order Creation: Generate a Purchase Order from the accepted b
 Email Notifications: Notify vendors upon RFQ publishing or selection.
 
  Technical Notes
-____________________
+-------
 
 Models
 
@@ -44,7 +44,7 @@ purchase.order (inherited): Modified to integrate with purchase requests.
 
 
   Views
-__________
+-------
 
 view_purchase_order.xml — Updated RFQ interface.
 
@@ -58,7 +58,7 @@ purchase module
 
 
  Installation
-_______________
+-------
 
 1. Clone the repository into your Odoo addons directory:
 
