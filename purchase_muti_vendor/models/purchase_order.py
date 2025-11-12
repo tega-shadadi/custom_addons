@@ -1,16 +1,27 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    rfq_vendor_ids = fields.One2many(
-        'rfq.vendor', 'order_id', string="RFQ Vendors"
+    rfq_vendor_ids = fields.Many2many(
+        'res.partner',
+        string="Select Vendors",
+        help="Select multiple vendors to invite for this RFQ."
     )
 
-class RFQVendor(models.Model):
-    _name = 'rfq.vendor'
-    _description = 'RFQ Vendor'
+    bid_ids = fields.One2many(
+        'purchase.bid',
+        'rfq_id',
+        string="Vendor Bids"
+    )
 
-    order_id = fields.Many2one('purchase.order', string="RFQ")
-    vendor_id = fields.Many2one('res.partner', string="Vendor", domain=[('supplier_rank','>',0)])
-    bid_amount = fields.Float(string="Bid Amount")
+    def select_winning_bid(self, bid_id):
+        """Called from UI button — set a bid as winner and confirm."""
+        bid = self.env['purchase.bid'].browse(bid_id)
+        self.ensure_one()
+
+        if not bid:
+            raise UserError("No bid found with that ID.")
+
+        bid.select_winning_bid()

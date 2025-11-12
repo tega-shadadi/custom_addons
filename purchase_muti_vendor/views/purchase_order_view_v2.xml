@@ -1,0 +1,37 @@
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Insert rfq_vendor_ids after partner_id -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="rfq_vendor_ids" widget="many2many_tags"
+                       placeholder="Select vendors"
+                       options="{'no_create': True}" />
+            </xpath>
+
+            <!-- Add Vendor Bids tab -->
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Vendor Bids">
+                        <field name="bid_ids">
+                            <list editable="bottom">
+                                <field name="rfq_vendor_id"/>
+                                <field name="amount"/>
+                                <field name="status"/>
+                                <button 
+                                  name="select_winning_bid" 
+                                  string="Select Winner" 
+                                  type="object"
+                                  attrs="{'invisible': [('status','=','winner')]}"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
