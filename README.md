@@ -73,7 +73,7 @@ Update the app list:
 odoo -u all
 
 
-Activate developer mode and install the Purchase Request and RFQ Workflow module.
+Activate developer mode and install the Purchase Request and Purchase Multi vendor module
 
 USAGE
 -------
