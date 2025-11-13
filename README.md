@@ -7,8 +7,6 @@ This module extends Odoo’s purchasing functionality by introducing a Purchase 
 Features Implemented
 
 1. RFQ Management
-
-- Procurement can send RFQs to multiple vendors.
 - Each vendor can submit their **bid amount** and details.
 - Procurement can view all vendor bids in one place.
 - A winning vendor can be selected manually, updating the main `partner_id` of the RFQ.
@@ -37,8 +35,6 @@ Email Notifications: Notify vendors upon RFQ publishing or selection.
 -------
 
 Models
-
-purchase.request: Handles internal purchase requests.
 
 purchase.order (inherited): Modified to integrate with purchase requests.
 
