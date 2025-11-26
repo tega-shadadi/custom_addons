@@ -20,7 +20,7 @@ class PurchaseRequest(models.Model):
         PurchaseOrder = self.env['purchase.order']
         for request in self:
             po = PurchaseOrder.create({
-                'partner_id': False,  # will be selected later
+                'partner_id': False,  
                 'order_line': [(0, 0, {
                     'product_id': request.product_id.id,
                     'product_qty': request.quantity,
