@@ -6,8 +6,8 @@ class PurchaseRequest(models.Model):
     _description = "Purchase Request"
 
     name = fields.Char(string="Request Reference", required=True)
-    employee_id = fields.Many2one('hr.employee', string="Employee", required=False)
-    product_id = fields.Many2one('product.product', string="Product", required=False)
+    employee_id = fields.Many2one('hr.employee', string="Employee", required=True)
+    product_id = fields.Many2one('product.product', string="Product", required=True)
     quantity = fields.Float(string="Quantity", required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -20,7 +20,7 @@ class PurchaseRequest(models.Model):
         PurchaseOrder = self.env['purchase.order']
         for request in self:
             po = PurchaseOrder.create({
-                'partner_id': False,  
+                'partner_id': False,  # will be selected later
                 'order_line': [(0, 0, {
                     'product_id': request.product_id.id,
                     'product_qty': request.quantity,
