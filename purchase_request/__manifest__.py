@@ -6,11 +6,11 @@
     'category': 'Purchases',
     'author': 'Shadadi',
     'license': 'LGPL-3',
-    'depends': ['base', 'purchase', 'hr'],  # add 'purchase_multi_vendor' if you have that module
+    'depends': ['base', 'purchase', 'hr'],  # 
     'data': [
         'security/ir.model.access.csv',
         'views/purchase_request_views.xml',
-        # menus after views (if you split files, ensure sequence)
+        
     ],
     'installable': True,
     'application': False,

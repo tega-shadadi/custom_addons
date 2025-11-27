@@ -1,112 +1,78 @@
- Purchase Request and RFQ Workflow Overview
--------
+If you'd like changes to tone, length, or additional sections (screenshots, role/permissions notes, or developer setup), tell me which parts to expand and I'll update the README accordingly.
+# Purchase Request & Purchase Multi-Vendor
 
+This repository contains Odoo 18 add-ons that extend the standard purchasing workflow by introducing a Purchase Request process and a multi-vendor RFQ (Request for Quotation) workflow. These modules help organizations where employees raise purchase requests and procurement manages RFQs, collects vendor bids, and selects winning offers.
 
-This module extends Odoo’s purchasing functionality by introducing a Purchase Request process and a customized Request for Quotation (RFQ) workflow. It is designed for organizations where employees submit purchase requests to the Procurement department, which then prepares and manages RFQs based on those requests.
+## Modules Included
 
-Features Implemented
+- `purchase_request`: Capture employee purchase requests and convert them into RFQs.
+- `purchase_multi_vendor`: Manage multi-vendor RFQs, collect vendor bids, and select winners.
 
-1. RFQ Management
-- Each vendor can submit their **bid amount** and details.
-- Procurement can view all vendor bids in one place.
-- A winning vendor can be selected manually, updating the main `partner_id` of the RFQ.
-- State transitions for RFQ: **New → Offer Received → Offer Accepted → Sold → Cancelled**
+## Overview
 
-2. Vendor Bid Handling (In Progress)
+The solution separates the request and procurement responsibilities:
 
-Planned functionality: vendors will be able to submit bids in response to RFQs.
+- Employees submit purchase requests (product, quantity, requester, justification).
+- Procurement converts approved requests into RFQs and invites multiple vendors to bid.
+- Vendors submit bids; procurement compares offers and selects a winner.
+- The winning bid becomes the supplier on the RFQ and can be confirmed into a Purchase Order.
 
-The system will then allow the procurement officer to compare and select the winning vendor.
+## Key Features
 
-Once a winner is selected, the main partner_id on the RFQ will be automatically updated to reflect the selected vendor.
+- Create and manage purchase requests with reference, requester, product, quantity, and status.
+- Convert a request to an RFQ with a single click.
+- Invite multiple vendors to an RFQ and collect vendor bids (`bid_ids`).
+- Select a winning vendor; the RFQ `partner_id` updates automatically.
+- RFQ state progression: New → Offer Received → Offer Accepted → Order Confirmed → Cancelled.
 
-Upcoming Features
--------------------
+## User Workflow
 
-Vendor Portal Integration: Allow vendors to submit offers directly.
+1. Create a Purchase Request
+   - Navigate to **Purchase Requests → Requests** and click **Create**. Fill in required fields and save.
 
-Bid Comparison View: Display vendor quotes side by side for selection.
+2. Convert Request to RFQ
+   - Click **Create RFQ** on the request form to generate a linked RFQ.
 
-Automatic Purchase Order Creation: Generate a Purchase Order from the accepted bid.
+3. Add Vendors to RFQ
+   - In the RFQ form add vendors to the `Vendors` (many2many `vendor_ids`) field.
+   - Invite vendors to bid manually or via your vendor portal (if enabled).
 
-Email Notifications: Notify vendors upon RFQ publishing or selection.
+4. Vendors Submit Bids
+   - Vendor bids are stored under the `Vendor Bids` tab. Each bid includes amount, currency, and comments.
 
- Technical Notes
--------
+5. Compare and Select Winner
+   - Review bids and click **Select Winner** on the chosen bid. That bid's status becomes Winner, and the RFQ `partner_id` updates to the selected vendor.
 
-Models
+6. Confirm Purchase
+   - Confirm the RFQ into a Purchase Order. The selected vendor becomes the supplier for the order.
 
-purchase.order (inherited): Modified to integrate with purchase requests.
+## Installation
 
+1. Clone this repository into your Odoo addons directory:
 
-  Views
--------
+```bash
+git clone https://github.com/tega-shadadi/custom_addons.git
+```
 
-view_purchase_order.xml — Updated RFQ interface.
+2. Restart Odoo and update the Apps list. Then install the `Purchase Request` and `Purchase Multi-Vendor` modules from Apps.
 
+Example (environment dependent):
 
-
-Dependencies
-
-Odoo 18.0
-
-purchase module
-
-
- Installation
--------
-
-1. Clone the repository into your Odoo addons directory:
-
-   ```bash
-   git clone https://github.com/tega-shadadi/custom_addons.git
-
-
-Copy the module folder to your Odoo addons directory.
-
-Update the app list:
-
+```bash
+# restart your Odoo server and update modules
+# (replace with your environment-specific commands)
 odoo -u all
+```
+
+## Technical Notes
+
+- Tested with: Odoo 18
+- Dependencies: Odoo core `purchase` and `hr` module
+- Important models: `purchase.request` (new), `purchase.order` (extended), and vendor bid models (e.g., `purchase.bid`).
+- Views: `purchase_order_view_v2.xml` includes RFQ/bid UI changes.
 
 
-Activate developer mode and install the Purchase Request and Purchase Multi vendor module
-
-USAGE
--------
-
-Step 1: Click Create RFQ — this automatically generates a linked RFQ.
-
-Select Vendors
-
-In the RFQ form view, select multiple vendors under Vendors (Many2many field vendor_ids).
-
-Each vendor will receive a copy of the RFQ or can be invited to bid manually.
-
-Step 2: Vendors Submit Bids
-
-Each vendor sends their bid amount and optional comments.
-
-Procurement encodes these offers under the Vendor Bids tab.
-
-Every entry is recorded in the bid_ids One2many list.
-
-Step 3: Select the Winning Bid
-
-In the Vendor Bids tab, click Select Winner beside the chosen vendor.
-
-The bid’s status updates to Winner.
-
-The main RFQ’s partner_id is automatically updated to the winning vendor.
-
-You can proceed to confirm the purchase order.
-
-Step 4: Complete Purchase
-
-Validate or confirm the RFQ as usual.
-
-The selected vendor becomes the supplier for the purchase order.
-
-Author
---------
+## Author
 
 Tega Shadadi
+

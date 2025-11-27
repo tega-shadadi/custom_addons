@@ -18,7 +18,7 @@ class PurchaseRequest(models.Model):
         """Convert request to RFQ using the multi-vendor RFQ module"""
         PurchaseOrder = self.env['purchase.order']
         for request in self:
-            # Use the first supplier of the product as vendor
+         
             vendor_id = request.product_id.seller_ids[:1].partner_id.id if request.product_id.seller_ids else False
             if not vendor_id:
                 raise UserError("The product has no supplier. Please assign a vendor before creating RFQ.")
