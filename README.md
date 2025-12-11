@@ -1,4 +1,3 @@
-If you'd like changes to tone, length, or additional sections (screenshots, role/permissions notes, or developer setup), tell me which parts to expand and I'll update the README accordingly.
 # Purchase Request & Purchase Multi-Vendor
 
 This repository contains Odoo 18 add-ons that extend the standard purchasing workflow by introducing a Purchase Request process and a multi-vendor RFQ (Request for Quotation) workflow. These modules help organizations where employees raise purchase requests and procurement manages RFQs, collects vendor bids, and selects winning offers.
