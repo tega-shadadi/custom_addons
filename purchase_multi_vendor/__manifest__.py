@@ -13,6 +13,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/purchase_order_view_v2.xml',
+        'views/purchase_bid_portal_views.xml',
+        'views/portal_bid_list_template.xml'
     ],
     'installable': True,
     'application': False,

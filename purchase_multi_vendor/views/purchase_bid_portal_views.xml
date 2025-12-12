@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ===============================
+             Portal Action
+        ================================ -->
+        <record id="action_portal_bids" model="ir.actions.act_window">
+            <field name="name">My Bids</field>
+            <field name="res_model">purchase.bid</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('rfq_vendor_id', '=', user.partner_id.id)]</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!-- ===============================
+             Custom Portal Root (Your Own)
+        ================================ -->
+        <record id="custom_portal_menu_root" model="ir.ui.menu">
+            <field name="name">Portal Menu</field>
+            <field name="sequence">1</field>
+            <field name="groups_id" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+
+        <!-- ===============================
+             Sidebar Portal Menu Item
+        ================================ -->
+        <record id="portal_menu_bids" model="ir.ui.menu">
+            <field name="name">My Bids</field>
+            <field name="parent_id" ref="purchase_multi_vendor.custom_portal_menu_root"/>
+            <field name="action" ref="purchase_multi_vendor.action_portal_bids"/>
+            <field name="sequence">10</field>
+            <field name="groups_id" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+
+        <!-- ===============================
+             Top Navigation Menu
+        ================================ -->
+        <template id="portal_my_bids_top_menu" inherit_id="portal.frontend_layout">
+            <xpath expr="//ul[@id='top_menu']" position="inside">
+                <li class="nav-item">
+                    <a class="nav-link" t-att-href="'/my/bids'">My Bids</a>
+                </li>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

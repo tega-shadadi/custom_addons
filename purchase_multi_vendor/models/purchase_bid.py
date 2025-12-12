@@ -1,34 +1,21 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class PurchaseBid(models.Model):
     _name = 'purchase.bid'
     _description = 'Vendor Bid'
 
-    rfq_id = fields.Many2one(
-        'purchase.order',
-        string='RFQ',
-        required=True,
-        ondelete='cascade'
-    )
-    rfq_vendor_id = fields.Many2one(
-        'res.partner',
-        string='Vendor',
-        required=True
-    )
-    amount = fields.Float(string='Bid Amount', required=True)
-    status = fields.Selection([
-        ('draft', 'Draft'),
-        ('submitted', 'Submitted'),
-        ('winner', 'Winner')
-    ], string='Status', default='draft')
+    rfq_id = fields.Many2one('purchase.order', string="RFQ")
+    rfq_vendor_id = fields.Many2one('res.partner', string="Vendor")
+    amount = fields.Float(string="Bid Amount", required=True)
+    status = fields.Selection([('pending', 'Pending'), ('winner', 'Winner')], default='pending')
 
     def select_winning_bid(self):
-        """Set this bid as winner and update the RFQ's vendor."""
-        for bid in self:
-            
-            bid.status = 'winner'
+        self.status = 'winner'
+        self.rfq_id.state = 'purchase'
+        self.rfq_id.bid_ids.filtered(lambda b: b != self).write({'status': 'pending'})
 
-            bid.rfq_id.partner_id = bid.rfq_vendor_id
-
-      
-            bid.rfq_id.button_confirm()
+    def action_submit_bid(self):
+        if self.amount <= 0:
+            raise UserError("Bid amount must be greater than zero")
+        self.status = 'pending'

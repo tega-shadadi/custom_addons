@@ -1,0 +1,27 @@
+<odoo>
+    <template id="portal_bid_list" name="Portal Bids List" inherit_id="portal.portal_layout">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <div class="o_portal_content mt-3">
+                <h3>My Bids</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>RFQ</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="bids" t-as="bid">
+                            <tr>
+                                <td><t t-esc="bid.rfq_id.name"/></td>
+                                <td><t t-esc="bid.amount"/></td>
+                                <td><t t-esc="bid.status"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>

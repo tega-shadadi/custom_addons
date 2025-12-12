@@ -11,6 +11,7 @@
         'security/ir.model.access.csv',
         'views/purchase_request_views.xml',
         
+        
     ],
     'installable': True,
     'application': False,
